@@ -1,4 +1,4 @@
-const addDateSuffix = date => {
+const addDateSuffix = (date) => {
   let dateStr = date.toString();
 
   // get last char of date string
@@ -35,7 +35,7 @@ module.exports = (
     8: monthLength === 'short' ? 'Sep' : 'September',
     9: monthLength === 'short' ? 'Oct' : 'October',
     10: monthLength === 'short' ? 'Nov' : 'November',
-    11: monthLength === 'short' ? 'Dec' : 'December'
+    11: monthLength === 'short' ? 'Dec' : 'December',
   };
 
   const dateObj = new Date(timestamp);
@@ -61,7 +61,9 @@ module.exports = (
   // set `am` or `pm`
   const periodOfDay = dateObj.getHours() >= 12 ? 'pm' : 'am';
 
-  const formattedTimeStamp = `${formattedMonth} ${dayOfMonth}, ${year} at ${hour}:${minutes} ${periodOfDay}`;
+  const formattedTimeStamp = `${formattedMonth} ${dayOfMonth}, ${year} at ${hour}:${
+    minutes < 10 ? '0' + minutes : minutes
+  } ${periodOfDay}`;
 
   return formattedTimeStamp;
 };

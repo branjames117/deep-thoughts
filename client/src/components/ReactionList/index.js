@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const ReactionList = ({ reactions }) => {
+  reactions.forEach((reaction) => console.log(reaction.createdAt));
   return (
     <div className='card mb-3'>
       <div className='card-header'>
