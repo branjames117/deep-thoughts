@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useMutation } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { ADD_THOUGHT } from '../../utils/mutations';
 import { QUERY_THOUGHTS, QUERY_ME } from '../../utils/queries';
 
@@ -25,11 +25,14 @@ const ThoughtForm = () => {
       }
 
       // update me object's cache, appending new thought to end of array
-      const { me } = cache.readQuery({ query: QUERY_ME });
-      cache.writeQuery({
-        query: QUERY_ME,
-        data: { me: { ...me, thoughts: [...me.thoughts, addThought] } },
-      });
+      const data = cache.readQuery({ query: QUERY_ME });
+      if (data) {
+        const { me } = data;
+        cache.writeQuery({
+          query: QUERY_ME,
+          data: { me: { ...me, thoughts: [...me.thoughts, addThought] } },
+        });
+      }
     },
   });
 
